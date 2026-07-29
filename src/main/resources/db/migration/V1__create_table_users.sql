@@ -1,0 +1,7 @@
+CREATE TABLE users_auth (
+    id UUID PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    cpf VARCHAR(11) NOT NULL,
+    email VARCHAR(254) NOT NULL,
+    password VARCHAR(60) NOT NULL
+)
