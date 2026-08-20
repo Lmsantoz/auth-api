@@ -1,0 +1,1 @@
+ALTER TABLE users ADD CONSTRAINT uc_users_user_name UNIQUE (user_name)
