@@ -5,10 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record RegisterRequest(
-        @NotBlank(message = "O Username é obrigatório")
+        @NotBlank(message = "The username is required.")
         String userName,
 
         @NotNull
-        @Size(min = 8, message = "Senha deve conter no mínimo 8 caracteres")
+        @Size(min = 8, message = "Password must contain at least 8 characters.")
         String password
 ) {}

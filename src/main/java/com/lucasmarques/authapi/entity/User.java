@@ -4,12 +4,15 @@ import com.lucasmarques.authapi.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 import java.util.UUID;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -27,4 +30,14 @@ public class User {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @ToString
+    public class Usuario {
+        private UUID id;
+        private String nome;
+        private UserRole role;
+
+        @ToString.Exclude
+        private String password;
+    }
 }

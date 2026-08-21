@@ -1,4 +1,4 @@
-CREATE TABLE users_auth (
+CREATE TABLE users (
     id UUID PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
     cpf VARCHAR(11) NOT NULL,

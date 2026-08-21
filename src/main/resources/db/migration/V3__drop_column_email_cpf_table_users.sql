@@ -1,0 +1,2 @@
+ALTER TABLE users DROP COLUMN cpf;
+ALTER TABLE users DROP COLUMN email;
