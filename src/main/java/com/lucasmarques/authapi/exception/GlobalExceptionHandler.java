@@ -4,10 +4,13 @@ import com.lucasmarques.authapi.dto.ErrorResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -18,7 +21,7 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleDataIntegrity(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException exception) {
 
         Map<String, String> errors = new HashMap<>();
 
@@ -52,5 +55,21 @@ public class GlobalExceptionHandler {
                errors
        );
        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ErrorResponse> handleAuthentication(AuthenticationException exception) {
+        Map<String, String> errors = new HashMap<>();
+
+        String friendlyMessage = "Credentials are invalid";
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.UNAUTHORIZED.value(),
+                "Unauthorized",
+                friendlyMessage,
+                errors
+        );
+        return new  ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 }
