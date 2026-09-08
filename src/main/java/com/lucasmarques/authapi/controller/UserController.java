@@ -13,6 +13,6 @@ public class UserController {
 
     @GetMapping("me")
     public UserResponse getUser(@AuthenticationPrincipal User user) {
-        return new UserResponse(user.getId(), user.getUsername(), user.getRole());
+        return new UserResponse(user.getId(), user.getUsername(), user.getRole(), user.getEmail());
     }
 }
