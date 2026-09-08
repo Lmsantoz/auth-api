@@ -15,4 +15,9 @@ public class RabbitConsumer {
         log.info("Processando envio de e-mail de boas-vindas para o usuário {}", userRegisteredEvent.id());
     }
 
+    @RabbitListener(queues = RabbitMQConfiguration.USER_DLQ)
+    public void handleUserRegisteredDlq(UserRegisteredEvent userRegisteredEvent) {
+        log.error("Mensagem esgotou as tentativas {}", userRegisteredEvent.id());
+    }
+
 }
