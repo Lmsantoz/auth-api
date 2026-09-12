@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -100,5 +101,13 @@ public class AuthServiceTest {
         LoginResponse loginResponse = authService.login(loginRequest);
 
         Assertions.assertEquals("fake token", loginResponse.token());
+    }
+
+    @Test
+    public void verifyCredential() {
+        LoginRequest loginRequest = new LoginRequest("Ana Julia", "dn2180e9");
+        when(authenticationManager.authenticate(any())).thenThrow(new BadCredentialsException("Invalid Credential"));
+
+        Assertions.assertThrows(BadCredentialsException.class, () -> authService.login(loginRequest));
     }
 }
